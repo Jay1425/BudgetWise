@@ -1,65 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BudgetWise - Settings</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body class="bg-gray-50 font-sans">
-    <div class="min-h-screen flex">
-        <!-- Sidebar (Same as above, with "Settings" highlighted) -->
-        <div class="bg-indigo-800 text-white w-64 py-4 flex-shrink-0 hidden md:block">
-            <div class="px-6">
-                <div class="flex items-center justify-center mb-8">
-                    <span class="text-2xl font-bold">Budget<span class="text-emerald-400">Wise</span></span>
-                </div>
-                <div class="space-y-2">
-                    <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
-                        <i class="fas fa-home"></i>
-                        <a href="{{url_for('dashboard')}}"><span>Dashboard</span></a>
-                    </div>
-                    <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
-                        <i class="fas fa-chart-line"></i>
-                        <a href="{{url_for('transactions')}}"><span>Transactions</span></a>
-                    </div>
-                    <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
-                        <i class="fas fa-wallet"></i>
-                        <a href="{{url_for('budgets')}}"><span>Budgets</span></a>
-                    </div>
-                    <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
-                        <i class="fas fa-piggy-bank"></i>
-                        <a href="{{url_for('savings')}}"><span>Savings Goals</span></a>
-                    </div>
-                    <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
-                        <i class="fas fa-brain"></i>
-                        <a href="{{url_for('ai_insights')}}"><span>AI Insights</span></a>
-                    </div>
-                    <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
-                        <i class="fas fa-trophy"></i>
-                        <a href="{{url_for('challenges')}}"><span>Challenges</span></a>
-                    </div>
-                    <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
-                        <i class="fas fa-book"></i>
-                        <a href="{{url_for('finance')}}"><span>Financial Literacy</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="px-6 mt-12">
-                <div class="border-t border-indigo-700 pt-4">
-                    <div class="flex items-center space-x-2 px-4 py-3 rounded-lg bg-indigo-900">
-                        <i class="fas fa-cog"></i>
-                        <a href="{{url_for('settings')}}"><span>Settings</span></a>
-                    </div>
-                    <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
-                        <i class="fas fa-question-circle"></i>
-                        <a href="{{url_for('help')}}"><span>Help</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+{% extends 'base.html' %}
 
+{{title}}
+
+{%block content%}
         <!-- Main Content -->
         <div class="flex-1 flex flex-col overflow-hidden">
             <!-- Top Navigation -->
@@ -117,5 +60,4 @@
             </main>
         </div>
     </div>
-</body>
-</html>
+{%endblock%}
