@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'uk46h1g6df3164hd'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///odoo.db'
-genai.configure(api_key="AIzaSyCINANC0bVIuccsledE2UfHez6YslI4LcA")
+genai.configure(api_key="google_api_here")
 model = genai.GenerativeModel("gemini-2.0-flash")
 
 db = SQLAlchemy(app)
