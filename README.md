@@ -7,6 +7,8 @@
 - **Pujan Chudasama**
 - **Radhika Mer**
 
+## Tutorial Video
+   drive link: https://drive.google.com/file/d/1gfpv8ARTzbugrsahIcuAInQMz9p5MRcA/view?usp=drivesdk
 ## Project Overview
 
 BudgetWise is an innovative and smart budgeting website designed to simplify personal finance management. By leveraging the power of AI, BudgetWise not only helps you track expenses and set savings goals but also provides insightful financial recommendations. Unlike traditional budgeting apps, BudgetWise takes a holistic approach by considering emotional spending and offering a unique community-based saving feature. 
