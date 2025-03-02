@@ -18,7 +18,6 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-# Models
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -55,7 +54,6 @@ def load_user(user_id):
 with app.app_context():
     db.create_all()
 
-# Routes
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -277,4 +275,4 @@ def gemini_page():
     return render_template("gemini.html", title="gemini")
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

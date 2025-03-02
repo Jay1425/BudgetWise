@@ -81,7 +81,7 @@ async function askGemini() {
     const responseDiv = document.getElementById("response");
 
     responseDiv.innerText = "Loading...";
-    
+
     const response = await fetch("/ask_gemini", {
         method: "POST",
         headers: {
@@ -93,6 +93,10 @@ async function askGemini() {
     const data = await response.json();
     responseDiv.innerText = data.response || "Error: " + data.error;
 }
+
+
+
+
 
 
 
