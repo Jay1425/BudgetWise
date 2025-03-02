@@ -1,122 +1,85 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block content %}
 
-{{title}}
-
-{%block content%}
-<!-- Main Content -->
-<div class="flex-1 flex flex-col overflow-hidden">
-    <!-- Top Navigation -->
-    <header class="bg-white shadow-sm z-10">
-        <div class="flex items-center justify-between h-16 px-6">
-            <div class="flex items-center md:hidden">
-                <button class="text-gray-500 focus:outline-none">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-            <div class="flex-1 flex items-center justify-between">
-                <div>
-                    <h1 class="text-xl font-semibold text-gray-800">BudgetWise</h1>
-                </div>
-                <nav class="p-4 bg-gray-100">
-                <div>
-                </div>
-                    <div class="relative">
-                        
-                        <button class="flex items-center space-x-2 focus:outline-none" id="dropdownButton">
-                            <img class="h-8 w-8 rounded-full" src="{{url_for('static', filename='default.jpg')}}" alt="Profile">
-                            <span class="text-sm font-medium text-gray-700">{{username}}</span>
-                           
-                        </button>
-                            
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content Scroll Area -->
-    <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
-        <!-- Welcome & Quick Actions -->
-        <div class="mb-6">
-            <div class="bg-gradient-to-r from-indigo-600 to-indigo-800 rounded-lg shadow-md p-6 text-white">
-                <div class="flex items-center justify-between">
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- Header Section -->
+        <div class="mb-8">
+            <div class="bg-white rounded-xl shadow-md p-6 transition-all hover:shadow-lg">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Welcome, {{ username }}!</h2>
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
-                        <h2 class="text-2xl font-bold">Welcome back, {{username}}!</h2>
-                        <p class="mt-1">Manage your payments and transactions effortlessly today.</p>
+                        <p class="text-gray-600 text-sm">Current Balance</p>
+                        <p class="text-3xl font-semibold text-green-600">${{ "%.2f"|format(balance) }}</p>
                     </div>
+                    <a href="{{ url_for('send_payment') }}" 
+                       class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Payment
+                    </a>
                 </div>
             </div>
         </div>
 
-        <!-- Payment Summary & Quick Actions (Google Pay-inspired) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <!-- Total Balance -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-lg font-semibold text-gray-700">Total Balance</h3>
-                <p class="text-2xl font-bold text-indigo-600 mt-2">$1,500.00</p>
-            </div>
-            <!-- Sent Payments -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-lg font-semibold text-gray-700">Sent Payments</h3>
-                <p class="text-2xl font-bold text-red-500 mt-2">$300.50</p>
-            </div>
-            <!-- Received Payments -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-lg font-semibold text-gray-700">Received Payments</h3>
-                <p class="text-2xl font-bold text-green-500 mt-2">$200.00</p>
-            </div>
-            <!-- Quick Payment -->
-            <div class="bg-white p-6 rounded-lg shadow-md col-span-1 md:col-span-2 lg:col-span-1">
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">Quick Payment</h3>
-                <form action="#" method="POST" class="space-y-2">
-                    <div class="mb-2">
-                        <input type="email" id="quickRecipient" name="quickRecipient"
-                            class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400"
-                            placeholder="Recipient Email (e.g., friend@example.com)" required>
+        <!-- Transactions Section -->
+        <div>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="bg-blue-600 px-6 py-4">
+                    <h3 class="text-xl font-semibold text-white">Recent Transactions</h3>
+                </div>
+                {% if transactions|length > 0 %}
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Date</th>
+                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Type</th>
+                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Amount</th>
+                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">With</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                {% for transaction in transactions %}
+                                    <tr class="hover:bg-gray-50 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                                            {{ transaction.timestamp.strftime('%Y-%m-%d %H:%M') }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            {% if transaction.sender_id == current_user.id %}
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                    Sent
+                                                </span>
+                                            {% else %}
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                    Received
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap font-semibold text-gray-800">
+                                            ${{ "%.2f"|format(transaction.amount) }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                                            {% if transaction.sender_id == current_user.id %}
+                                                {{ transaction.receiver_username }}
+                                            {% else %}
+                                                {{ transaction.sender_username }}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="mb-2">
-                        <input type="number" id="quickAmount" name="quickAmount" step="0.01"
-                            class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400"
-                            placeholder="Amount ($)" required>
+                {% else %}
+                    <div class="p-6 text-center text-gray-500">
+                        <p class="mb-4">No transactions yet. Start by sending or receiving payments!</p>
+                        <a href="{{ url_for('send_payment') }}" 
+                           class="inline-block bg-transparent border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                            Make First Transaction
+                        </a>
                     </div>
-                    <button type="submit"
-                        class="w-full bg-indigo-600 text-white p-2 rounded-lg font-semibold hover:bg-indigo-700">Send
-                        Now</button>
-                </form>
-                <p class="mt-2 text-sm text-gray-500">Secure, instant P2P payments—offline capable!</p>
+                {% endif %}
             </div>
         </div>
-
-        <!-- Transactions History (Google Pay-style) -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h3 class="text-xl font-semibold text-gray-800 mb-4">Recent Transactions</h3>
-            <div class="space-y-4">
-                <div
-                    class="flex justify-between items-center p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer">
-                    <div>
-                        <p class="font-medium text-gray-700">Sent to Jane Smith</p>
-                        <p class="text-sm text-gray-500">Feb 26, 2025</p>
-                    </div>
-                    <p class="text-red-500 font-bold">-$75.00</p>
-                </div>
-                <div
-                    class="flex justify-between items-center p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer">
-                    <div>
-                        <p class="font-medium text-gray-700">Received from Mike Johnson</p>
-                        <p class="text-sm text-gray-500">Feb 25, 2025</p>
-                    </div>
-                    <p class="text-green-500 font-bold">+$200.00</p>
-                </div>
-                <div
-                    class="flex justify-between items-center p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer">
-                    <div>
-                        <p class="font-medium text-gray-700">Sent to Family Fund</p>
-                        <p class="text-sm text-gray-500">Feb 24, 2025</p>
-                    </div>
-                    <p class="text-red-500 font-bold">-$50.00</p>
-                </div>
-                <a href="#" class="mt-2 inline-flex text-indigo-600 hover:underline">View All Transactions <i
-                        class="fas fa-arrow-right ml-1"></i></a>
-            </div>
-        </div>
-{%endblock%}
+    </div>
+    
+{% endblock %}
