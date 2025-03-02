@@ -19,13 +19,11 @@
                         </div>
                         <div class="flex items-center space-x-4">
                             <button class="p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
-                                <i class="fas fa-bell"></i>
                             </button>
                             <div class="relative">
                                 <button class="flex items-center space-x-2 focus:outline-none">
-                                    <img class="h-8 w-8 rounded-full" src="/api/placeholder/32/32" alt="Profile">
-                                    <span class="text-sm font-medium text-gray-700">John Doe</span>
-                                    <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                                    <img class="h-8 w-8 rounded-full" src="{{url_for('static', filename='default.jpg')}}" alt="Profile">
+                                    <span class="text-sm font-medium text-gray-700">{{username}}</span>
                                 </button>
                             </div>
                         </div>
@@ -74,7 +72,8 @@
                                     <p class="text-sm text-gray-500">Answer 10 questions - Earn 50 coins</p>
                                 </div>
                             </div>
-                            <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Play Now</button>
+                            <a href="{{url_for('quize_game')}}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Play Now</a>
+                          
                         </div>
                         <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg">
                             <div class="flex items-center">
@@ -84,7 +83,7 @@
                                     <p class="text-sm text-gray-500">Spin the wheel - Earn up to 100 coins</p>
                                 </div>
                             </div>
-                            <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Play Now</button>
+                            <a href="{{url_for('saving_spin_game')}}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Play Now</a>
                         </div>
                         <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg">
                             <div class="flex items-center">
@@ -94,7 +93,7 @@
                                     <p class="text-sm text-gray-500">Match expenses - Earn 30 coins</p>
                                 </div>
                             </div>
-                            <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Play Now</button>
+                            <a href="{{url_for('money_match')}}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Play Now</a>
                         </div>
                     </div>
                 </div>

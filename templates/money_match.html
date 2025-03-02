@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudgetWise - Money Match</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #e0e7ff, #dbeafe); overflow: hidden; }
+        .game-container { max-width: 800px; margin: 2rem auto; padding: 2rem; background: rgba(255, 255, 255, 0.9); border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); backdrop-filter: blur(10px); }
+        .card { width: 120px; height: 180px; perspective: 1000px; cursor: pointer; transition: transform 0.3s ease; }
+        .card:hover:not(.flipped) { transform: scale(1.05); }
+        .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .card.flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+        .card-front { background: linear-gradient(45deg, #e5e7eb, #d1d5db); }
+        .card-back { background: linear-gradient(45deg, #4f46e5, #7c3aed); color: white; transform: rotateY(180deg); font-weight: 600; font-size: 1.1rem; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); }
+        @keyframes fadeOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.8); } }
+        .matched { animation: fadeOut 0.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .result-text { animation: fadeIn 0.5s ease forwards; font-size: 1.5rem; color: #4f46e5; }
+        .win-message { background: #ecfdf5; border: 2px solid #10b981; padding: 1rem; border-radius: 12px; }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="flex items-center justify-center mb-6">
+            <i class="fas fa-puzzle-piece text-indigo-600 text-3xl mr-3 animate-spin"></i>
+            <div>
+                <h2 class="text-3xl font-bold text-gray-800">Money Match</h2>
+                <p class="text-md text-gray-600">Match expenses to earn 30 coins!</p>
+            </div>
+        </div>
+
+        <div id="game-grid" class="grid grid-cols-4 gap-6 mb-6 justify-center"></div>
+
+        <div id="result" class="text-center hidden win-message">
+            <p class="result-text">Congratulations! You matched all pairs!</p>
+            <p class="text-gray-600">You won <span id="coins-won">30</span> coins (<span id="money-won">$0.30</span>)!</p>
+            <a href="#" class="mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-all">Back to Games</a>
+        </div>
+    </div>
+
+    <script>
+        const pairs = [
+            { expense: "Coffee - $5", id: 1 },
+            { expense: "Coffee - $5", id: 1 },
+            { expense: "Rent - $1000", id: 2 },
+            { expense: "Rent - $1000", id: 2 },
+            { expense: "Groceries - $50", id: 3 },
+            { expense: "Groceries - $50", id: 3 },
+            { expense: "Bus - $2", id: 4 },
+            { expense: "Bus - $2", id: 4 },
+        ];
+        const coinsWon = 30; // Fixed reward
+        const conversionRate = 0.01; // 1 coin = $0.01
+
+        const gameGrid = document.getElementById('game-grid');
+        const result = document.getElementById('result');
+        const coinsWonEl = document.getElementById('coins-won');
+        const moneyWonEl = document.getElementById('money-won');
+        let flippedCards = [];
+        let matchedPairs = 0;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        shuffle(pairs).forEach(pair => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front"></div>
+                    <div class="card-back">${pair.expense}</div>
+                </div>
+            `;
+            card.dataset.id = pair.id;
+            card.addEventListener('click', flipCard);
+            gameGrid.appendChild(card);
+        });
+
+        function flipCard() {
+            if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
+                this.classList.add('flipped');
+                flippedCards.push(this);
+
+                if (flippedCards.length === 2) {
+                    setTimeout(checkMatch, 1000);
+                }
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.id === card2.dataset.id) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                if (matchedPairs === pairs.length / 2) {
+                    setTimeout(() => {
+                        coinsWonEl.textContent = coinsWon;
+                        moneyWonEl.textContent = `$${(coinsWon * conversionRate).toFixed(2)}`;
+                        result.classList.remove('hidden');
+                        gameGrid.classList.add('hidden');
+                    }, 600);
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+            }
+            flippedCards = [];
+        }
+    </script>
+</body>
+</html>

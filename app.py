@@ -215,21 +215,30 @@ def add_funds():
     
     return render_template('add_funds.html', title="Add Funds")
 
-# Existing routes
 @app.route('/savings')
 @login_required
 def savings():
     return render_template('savings.html', username=current_user.username, title="savings")
 
-@app.route('/ai_insights')
-@login_required
-def ai_insights():
-    return render_template('ai_insights.html', title="AI Insights")
-
 @app.route('/challenges')
 @login_required
 def challenges():
-    return render_template('challenges.html', title="challenges")
+    return render_template('challenges.html', title="challenges", username=current_user.username)
+
+@app.route('/money_match')
+@login_required
+def money_match():
+    return render_template('money_match.html', title="money match")
+
+@app.route('/quize_game')
+@login_required
+def quize_game():
+    return render_template('quize_game.html', title="quize game")
+
+@app.route('/saving_spin_game')
+@login_required
+def saving_spin_game():
+    return render_template('saving_spin_game.html', title="saving spin game")
 
 @app.route('/finance')
 @login_required
@@ -268,4 +277,4 @@ def gemini_page():
     return render_template("gemini.html", title="gemini")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudgetWise - Budget Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #e0e7ff, #dbeafe); overflow: hidden; }
+        .game-container { max-width: 700px; margin: 2rem auto; padding: 2rem; background: rgba(255, 255, 255, 0.9); border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); backdrop-filter: blur(10px); }
+        .progress-bar { background: #e5e7eb; border-radius: 9999px; height: 0.75rem; overflow: hidden; }
+        .progress-fill { background: linear-gradient(90deg, #4f46e5, #7c3aed); height: 100%; border-radius: 9999px; transition: width 0.5s ease; }
+        .option-label { display: flex; align-items: center; padding: 0.75rem; border-radius: 12px; transition: all 0.3s ease; cursor: pointer; }
+        .option-label:hover { background: #f3f4f6; }
+        input[type="radio"]:checked + span { color: #4f46e5; font-weight: 600; }
+        .submit-btn { background: linear-gradient(90deg, #4f46e5, #7c3aed); padding: 0.75rem 2rem; font-size: 1.1rem; font-weight: 600; border-radius: 50px; color: white; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4); }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .result-message { animation: fadeIn 0.5s ease forwards; }
+        .win-message { background: #ecfdf5; border: 2px solid #10b981; padding: 1rem; border-radius: 12px; }
+        .result-text { font-size: 1.5rem; color: #4f46e5; }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="flex items-center justify-center mb-6">
+            <i class="fas fa-gamepad text-indigo-600 text-3xl mr-3 animate-pulse"></i>
+            <div>
+                <h2 class="text-3xl font-bold text-gray-800">Budget Quiz</h2>
+                <p class="text-md text-gray-600">Answer 10 questions to earn up to 50 coins!</p>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <p class="text-gray-700">Progress: <span id="progress">1/10</span></p>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 10%"></div>
+            </div>
+        </div>
+
+        <div id="quiz-container" class="space-y-4">
+            <p class="text-xl font-semibold text-gray-800">Question 1: What is the best way to save money?</p>
+            <div class="space-y-2">
+                <label class="option-label">
+                    <input type="radio" name="answer" class="form-radio text-indigo-600 mr-2" value="a">
+                    <span class="text-gray-700">A) Spend it all immediately</span>
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="answer" class="form-radio text-indigo-600 mr-2" value="b">
+                    <span class="text-gray-700">B) Set a monthly budget</span>
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="answer" class="form-radio text-indigo-600 mr-2" value="c">
+                    <span class="text-gray-700">C) Hide it under your mattress</span>
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="answer" class="form-radio text-indigo-600 mr-2" value="d">
+                    <span class="text-gray-700">D) Give it away</span>
+                </label>
+            </div>
+            <button id="submit-answer" class="submit-btn">Submit Answer</button>
+        </div>
+
+        <div id="result-message" class="hidden mt-4 p-4 rounded-lg result-message"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What is the best way to save money?", options: ["A) Spend it all immediately", "B) Set a monthly budget", "C) Hide it under your mattress", "D) Give it away"], correct: "b" },
+            { question: "How often should you review your budget?", options: ["A) Never", "B) Monthly", "C) Once a year", "D) Every decade"], correct: "b" },
+            { question: "What’s a good emergency fund size?", options: ["A) $10", "B) 3-6 months of expenses", "C) $1 million", "D) None"], correct: "b" },
+            { question: "What does 'budget' mean?", options: ["A) Spending spree", "B) Plan for money", "C) Debt trap", "D) Savings only"], correct: "b" },
+            { question: "Best way to track spending?", options: ["A) Guess", "B) Use an app", "C) Ignore it", "D) Ask a friend"], correct: "b" },
+            { question: "What’s compound interest?", options: ["A) Interest on interest", "B) Flat rate", "C) Tax", "D) Penalty"], correct: "a" },
+            { question: "Should you invest all in one stock?", options: ["A) Yes", "B) No, diversify", "C) Only if it’s cheap", "D) Always"], correct: "b" },
+            { question: "What’s a credit score?", options: ["A) Game score", "B) Financial health", "C) Debt amount", "D) Bank rating"], correct: "b" },
+            { question: "Best way to avoid debt?", options: ["A) Spend freely", "B) Live within means", "C) Borrow more", "D) Ignore bills"], correct: "b" },
+            { question: "What’s a savings goal?", options: ["A) Random spending", "B) Target to save", "C) Debt plan", "D) Expense"], correct: "b" },
+        ];
+        let currentQuestion = 0;
+        let score = 0;
+        const coinsPerQuestion = 5; // 5 coins per correct answer, max 50
+        const conversionRate = 0.01; // 1 coin = $0.01
+
+        const quizContainer = document.getElementById('quiz-container');
+        const progress = document.getElementById('progress');
+        const progressFill = document.getElementById('progress-fill');
+        const submitBtn = document.getElementById('submit-answer');
+        const resultMessage = document.getElementById('result-message');
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            quizContainer.querySelector('p').textContent = `Question ${currentQuestion + 1}: ${q.question}`;
+            const options = quizContainer.querySelectorAll('span');
+            options.forEach((opt, i) => opt.textContent = q.options[i]);
+            progress.textContent = `${currentQuestion + 1}/${questions.length}`;
+            progressFill.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+        }
+
+        submitBtn.addEventListener('click', () => {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            if (!selected) {
+                alert('Please select an answer!');
+                return;
+            }
+
+            const answer = selected.value;
+            const correct = questions[currentQuestion].correct;
+            resultMessage.classList.remove('hidden');
+            if (answer === correct) {
+                score++;
+                resultMessage.classList.add('bg-green-100');
+                resultMessage.innerHTML = "<p class='text-gray-700'>Correct! Well done!</p>";
+            } else {
+                resultMessage.classList.add('bg-red-100');
+                resultMessage.innerHTML = `<p class='text-gray-700'>Wrong! The correct answer was ${correct.toUpperCase()}.</p>`;
+            }
+
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                setTimeout(() => {
+                    resultMessage.classList.add('hidden');
+                    resultMessage.classList.remove('bg-green-100', 'bg-red-100');
+                    loadQuestion();
+                    document.querySelectorAll('input[name="answer"]').forEach(input => input.checked = false);
+                }, 1500);
+            } else {
+                const totalCoins = score * coinsPerQuestion;
+                const totalMoney = (totalCoins * conversionRate).toFixed(2);
+                quizContainer.innerHTML = `<p class="text-xl font-semibold text-gray-800">Quiz Completed! You scored ${score}/${questions.length}.</p>`;
+                resultMessage.classList.remove('hidden');
+                resultMessage.classList.add('win-message');
+                resultMessage.innerHTML = `
+                    <p class="result-text">You won ${totalCoins} coins!</p>
+                    <p class="text-gray-600">That’s $${totalMoney}!</p>
+                    <a href="#" class="mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Back to Games</a>
+                `;
+                submitBtn.remove();
+            }
+        });
+
+        loadQuestion();
+    </script>
+</body>
+</html>
