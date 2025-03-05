@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 </head>
+
 <body class="bg-gray-50 font-sans">
     <div class="min-h-screen flex">
         <!-- Sidebar -->
@@ -19,23 +21,23 @@
                 <div class="space-y-2">
                     <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
                         <i class="fas fa-home"></i>
-                        <a href="{{url_for('dashboard')}}"><span>Dashboard</span></a>
+                        <a href="{{url_for('main.dashboard')}}"><span>Dashboard</span></a>
                     </div>
                     <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
                         <i class="fas fa-wallet"></i>
-                        <a href="{{url_for('budgets')}}"><span>Budgets</span></a>
+                        <a href="{{url_for('budget.budgets')}}"><span>Budgets</span></a>
                     </div>
                     <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
                         <i class="fas fa-piggy-bank"></i>
-                        <a href="{{url_for('savings')}}"><span>Savings Goals</span></a>
+                        <a href="{{url_for('main.savings')}}"><span>Savings Goals</span></a>
                     </div>
                     <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
                         <i class="fas fa-trophy"></i>
-                        <a href="{{url_for('challenges')}}"><span>Challenges</span></a>
+                        <a href="{{url_for('main.challenges')}}"><span>Challenges</span></a>
                     </div>
                     <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
                         <i class="fas fa-book"></i>
-                        <a href="{{url_for('finance')}}"><span>Financial Literacy</span></a>
+                        <a href="{{url_for('main.finance')}}"><span>Financial Literacy</span></a>
                     </div>
                 </div>
             </div>
@@ -43,39 +45,42 @@
                 <div class="border-t border-indigo-700 pt-4">
                     <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
                         <i class="fas fa-cog"></i>
-                        <a href="{{url_for('settings')}}"><span>Settings</span></a>
+                        <a href="{{url_for('main.settings')}}"><span>Settings</span></a>
                     </div>
                     <div class="flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-indigo-700">
                         <i class="fas fa-question-circle"></i>
-                        <a href="{{url_for('help')}}"><span>Help</span></a>
+                        <a href="{{url_for('main.help')}}"><span>Help</span></a>
                     </div>
 
                     <a href="#" class="block px-4 py-2 text-sm text-white-700 hover:bg-gray-100">Profile</a>
-                    <a href="{{ url_for('logout') }}" class="block px-4 py-2 text-sm text-white-700 hover:bg-gray-100">Logout</a>
+                    <a href="{{ url_for('auth.logout') }}"
+                        class="block px-4 py-2 text-sm text-white-700 hover:bg-gray-100">Logout</a>
                 </div>
             </div>
         </div>
-        
-    <!-- content -->
-     {%block content%}
-     {%endblock%}
-              
-            
 
-    <!-- AI Help Chatbot (Toggleable Mini) -->
-    <div class="fixed bottom-4 right-4 z-50">
-        <!-- Toggle Button -->
-        <a href="{{url_for('gemini_page')}}">
-        <button id="chatToggle" class="bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 focus:outline-none">
-            <i class="fas fa-robot text-xl"></i>
-        </button>
-        </a>
+        <!-- content -->
+        {%block content%}
+        {%endblock%}
 
-       
-           
 
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
-    {% block scripts %}
-    {% endblock %}
+
+        <!-- AI Help Chatbot (Toggleable Mini) -->
+        <div class="fixed bottom-4 right-4 z-50">
+            <!-- Toggle Button -->
+            <a href="{{url_for('gemini.gemini_page')}}">
+                <button id="chatToggle"
+                    class="bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 focus:outline-none">
+                    <i class="fas fa-robot text-xl"></i>
+                </button>
+            </a>
+
+
+
+
+            <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+            {% block scripts %}
+            {% endblock %}
 </body>
+
 </html>

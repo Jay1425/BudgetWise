@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
 </head>
+
 <body class="font-sans bg-gray-50">
     <!-- Navigation -->
     <nav class="bg-white shadow-sm">
@@ -15,26 +17,35 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
-                        <span class="text-2xl font-bold text-indigo-600">Budget<span class="text-emerald-500">Wise</span></span>
+                        <span class="text-2xl font-bold text-indigo-600">Budget<span
+                                class="text-emerald-500">Wise</span></span>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href=""
+                            class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                             Home
                         </a>
-                        <a href="" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href=""
+                            class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                             Features
                         </a>
-                        <a href="" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href=""
+                            class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                             How It Works
                         </a>
                     </div>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                    <a href="{{url_for('login')}}" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Login</a>
-                    <a href="{{url_for('signup')}}" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign up</a>
+                    <a href="{{url_for('auth.login')}}"
+                        class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                    <a href="{{url_for('auth.signup')}}"
+                        class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign
+                        up</a>
                 </div>
                 <div class="-mr-2 flex items-center sm:hidden">
-                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
+                    <button type="button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                        aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <i class="fas fa-bars"></i>
                     </button>
@@ -52,25 +63,33 @@
                         Take control of your finances
                     </h1>
                     <p class="mt-6 text-xl text-indigo-100 max-w-3xl">
-                        BudgetWise is your AI-powered financial companion that helps you track expenses, set savings goals, and make smarter spending decisions.
+                        BudgetWise is your AI-powered financial companion that helps you track expenses, set savings
+                        goals, and make smarter spending decisions.
                     </p>
                     <div class="mt-10 flex gap-4">
-                        <a href="{{url_for('signup')}}" class="inline-flex items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <a href="{{url_for('auth.signup')}}"
+                            class="inline-flex items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Get Started
                         </a>
-                        <a href="#" class="inline-flex items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-800 bg-opacity-60 hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <a href="#"
+                            class="inline-flex items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-800 bg-opacity-60 hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Learn more
                         </a>
                     </div>
                 </div>
                 <div class="mt-12 md:mt-0 relative">
-                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-emerald-500 to-blue-500 opacity-20 rounded-lg"></div>
+                    <div
+                        class="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-emerald-500 to-blue-500 opacity-20 rounded-lg">
+                    </div>
                 </div>
             </div>
         </div>
         <div class="hero-wave">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                preserveAspectRatio="none">
+                <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                    class="shape-fill"></path>
             </svg>
         </div>
     </div>
@@ -80,8 +99,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h2 class="text-base font-semibold text-indigo-600 tracking-wide uppercase">Features</h2>
-                <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-5xl">What makes BudgetWise special</p>
-                <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Our unique features are designed to make financial management effortless and effective.</p>
+                <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-5xl">What
+                    makes BudgetWise special</p>
+                <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Our unique features are designed to make
+                    financial management effortless and effective.</p>
             </div>
 
             <div class="mt-12">
@@ -90,11 +111,13 @@
                         <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8">
                             <div class="-mt-6">
                                 <div>
-                                    <span class="inline-flex items-center justify-center p-3 bg-indigo-500 rounded-md shadow-lg">
+                                    <span
+                                        class="inline-flex items-center justify-center p-3 bg-indigo-500 rounded-md shadow-lg">
                                         <i class="fas fa-brain text-white text-2xl"></i>
                                     </span>
                                 </div>
-                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">AI-Powered Insights</h3>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">AI-Powered Insights
+                                </h3>
                                 <p class="mt-5 text-base text-gray-500">
                                     Our AI analyzes your spending patterns and provides personalized financial advice.
                                 </p>
@@ -106,11 +129,13 @@
                         <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8">
                             <div class="-mt-6">
                                 <div>
-                                    <span class="inline-flex items-center justify-center p-3 bg-emerald-500 rounded-md shadow-lg">
+                                    <span
+                                        class="inline-flex items-center justify-center p-3 bg-emerald-500 rounded-md shadow-lg">
                                         <i class="fas fa-heart-broken text-white text-2xl"></i>
                                     </span>
                                 </div>
-                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Emotional Spending Alerts</h3>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Emotional Spending
+                                    Alerts</h3>
                                 <p class="mt-5 text-base text-gray-500">
                                     Get notified when you're making impulsive purchases to help curb emotional spending.
                                 </p>
@@ -122,13 +147,15 @@
                         <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8">
                             <div class="-mt-6">
                                 <div>
-                                    <span class="inline-flex items-center justify-center p-3 bg-blue-500 rounded-md shadow-lg">
+                                    <span
+                                        class="inline-flex items-center justify-center p-3 bg-blue-500 rounded-md shadow-lg">
                                         <i class="fas fa-wifi-slash text-white text-2xl"></i>
                                     </span>
                                 </div>
                                 <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Offline Tracking</h3>
                                 <p class="mt-5 text-base text-gray-500">
-                                    Log expenses even without internet access, perfect for those with limited connectivity.
+                                    Log expenses even without internet access, perfect for those with limited
+                                    connectivity.
                                 </p>
                             </div>
                         </div>
@@ -138,7 +165,8 @@
                         <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8">
                             <div class="-mt-6">
                                 <div>
-                                    <span class="inline-flex items-center justify-center p-3 bg-purple-500 rounded-md shadow-lg">
+                                    <span
+                                        class="inline-flex items-center justify-center p-3 bg-purple-500 rounded-md shadow-lg">
                                         <i class="fas fa-trophy text-white text-2xl"></i>
                                     </span>
                                 </div>
@@ -159,7 +187,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h2 class="text-base font-semibold text-indigo-600 tracking-wide uppercase">How It Works</h2>
-                <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-5xl">Simple steps to financial freedom</p>
+                <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-5xl">Simple
+                    steps to financial freedom</p>
             </div>
 
             <div class="mt-12">
@@ -168,38 +197,45 @@
                         <div class="w-full border-t border-gray-300"></div>
                     </div>
                     <div class="relative flex justify-center">
-                        <span class="px-3 bg-gray-50 text-lg font-medium text-gray-900">Your journey to better finances</span>
+                        <span class="px-3 bg-gray-50 text-lg font-medium text-gray-900">Your journey to better
+                            finances</span>
                     </div>
                 </div>
 
                 <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-8 md:grid-cols-3">
                     <div class="relative">
-                        <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                        <div
+                            class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
                             <span class="text-lg font-bold">1</span>
                         </div>
                         <div class="ml-16 pt-1">
                             <h3 class="text-lg font-medium text-gray-900">Sign up and set goals</h3>
-                            <p class="mt-2 text-base text-gray-500">Create an account and define your financial goals and budget limits.</p>
+                            <p class="mt-2 text-base text-gray-500">Create an account and define your financial goals
+                                and budget limits.</p>
                         </div>
                     </div>
 
                     <div class="relative">
-                        <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                        <div
+                            class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
                             <span class="text-lg font-bold">2</span>
                         </div>
                         <div class="ml-16 pt-1">
                             <h3 class="text-lg font-medium text-gray-900">Track your expenses</h3>
-                            <p class="mt-2 text-base text-gray-500">Log your daily expenses which are automatically categorized by our AI.</p>
+                            <p class="mt-2 text-base text-gray-500">Log your daily expenses which are automatically
+                                categorized by our AI.</p>
                         </div>
                     </div>
 
                     <div class="relative">
-                        <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                        <div
+                            class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
                             <span class="text-lg font-bold">3</span>
                         </div>
                         <div class="ml-16 pt-1">
                             <h3 class="text-lg font-medium text-gray-900">Get insights and save</h3>
-                            <p class="mt-2 text-base text-gray-500">Receive personalized insights and watch your savings grow over time.</p>
+                            <p class="mt-2 text-base text-gray-500">Receive personalized insights and watch your savings
+                                grow over time.</p>
                         </div>
                     </div>
                 </div>
@@ -218,12 +254,14 @@
                 </p>
                 <div class="mt-8 flex justify-center">
                     <div class="inline-flex rounded-md shadow">
-                        <a href="{{url_for('signup')}}" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-white hover:bg-indigo-50">
+                        <a href="{{url_for('auth.signup')}}"
+                            class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-white hover:bg-indigo-50">
                             Sign up for free
                         </a>
                     </div>
                     <div class="ml-3 inline-flex">
-                        <a href="" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-800 bg-opacity-60 hover:bg-opacity-70">
+                        <a href=""
+                            class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-800 bg-opacity-60 hover:bg-opacity-70">
                             Learn more
                         </a>
                     </div>
@@ -238,7 +276,8 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                     <span class="text-2xl font-bold text-white">Budget<span class="text-emerald-400">Wise</span></span>
-                    <p class="mt-2 text-sm text-gray-300">Your AI-powered financial companion that helps you make smarter money decisions.</p>
+                    <p class="mt-2 text-sm text-gray-300">Your AI-powered financial companion that helps you make
+                        smarter money decisions.</p>
                 </div>
                 <div>
                     <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Features</h3>
@@ -269,9 +308,11 @@
                 </div>
             </div>
             <div class="mt-12 border-t border-gray-700 pt-8">
-                <p class="text-base text-gray-400 text-center">&copy; 2025 BudgetWise by Team AI Visionaries. All rights reserved.</p>
+                <p class="text-base text-gray-400 text-center">&copy; 2025 BudgetWise by Team AI Visionaries. All rights
+                    reserved.</p>
             </div>
         </div>
     </footer>
 </body>
+
 </html>

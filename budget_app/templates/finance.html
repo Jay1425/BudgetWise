@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{{title}}
+
+{%block content%}
+
+<!-- Main Content -->
+<div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Top Navigation (Unchanged) -->
+    <header class="bg-white shadow-sm z-10">
+        <div class="flex items-center justify-between h-16 px-6">
+            <div class="flex items-center md:hidden">
+                <button class="text-gray-500 focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="flex-1 flex items-center justify-between">
+                <div>
+                    <h1 class="text-xl font-semibold text-gray-800">Financial Literacy</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-1 text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img class="h-8 w-8 rounded-full" src="/api/placeholder/32/32" alt="Profile">
+                            <span class="text-sm font-medium text-gray-700">John Doe</span>
+                            <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Scroll Area -->
+    <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Learn About Money</h2>
+            <div class="space-y-4">
+                <!-- Budgeting Basics -->
+                <div class="p-4 bg-gray-100 rounded-lg">
+                    <div class="flex items-center">
+                        <i class="fas fa-wallet text-indigo-600 text-2xl mr-3"></i>
+                        <div>
+                            <p class="font-medium text-gray-700">Budgeting Basics</p>
+                            <p class="text-sm text-gray-600">Learn how to create and stick to a budget.</p>
+                        </div>
+                    </div>
+                    <div class="steps hidden mt-4">
+                        <ol class="list-decimal list-inside text-sm text-gray-600 space-y-1">
+                            <li>Assess your income: Calculate your total monthly earnings.</li>
+                            <li>Track your expenses: Record all spending for a month.</li>
+                            <li>Categorize spending: Divide expenses into needs and wants.</li>
+                            <li>Set goals: Decide how much to save or spend in each category.</li>
+                            <li>Create your budget: Use a 50/30/20 rule or customize.</li>
+                            <li>Monitor and adjust: Review weekly and tweak as needed.</li>
+                        </ol>
+                    </div>
+                    <button class="mt-2 text-indigo-600 hover:underline start-lesson">Start Lesson</button>
+                </div>
+                <!-- Understanding Credit -->
+                <div class="p-4 bg-gray-100 rounded-lg">
+                    <div class="flex items-center">
+                        <i class="fas fa-credit-card text-indigo-600 text-2xl mr-3"></i>
+                        <div>
+                            <p class="font-medium text-gray-700">Understanding Credit</p>
+                            <p class="text-sm text-gray-600">Explore how credit works and how to manage it.</p>
+                        </div>
+                    </div>
+                    <div class="steps hidden mt-4">
+                        <ol class="list-decimal list-inside text-sm text-gray-600 space-y-1">
+                            <li>Learn key terms: Understand credit scores, APR, and limits.</li>
+                            <li>Check your credit report: Request a free report annually.</li>
+                            <li>Understand credit impact: See how payments affect your score.</li>
+                            <li>Use credit wisely: Keep balances low and pay on time.</li>
+                            <li>Fix mistakes: Dispute errors on your credit report.</li>
+                        </ol>
+                    </div>
+                    <button class="mt-2 text-indigo-600 hover:underline start-lesson">Start Lesson</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.start-lesson');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const stepsDiv = button.previousElementSibling;
+                if (stepsDiv.classList.contains('hidden')) {
+                    stepsDiv.classList.remove('hidden');
+                    button.textContent = 'Hide Lesson';
+                } else {
+                    stepsDiv.classList.add('hidden');
+                    button.textContent = 'Start Lesson';
+                }
+            });
+        });
+    });
+</script>
+<script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'919d4d429d106754',t:'MTc0MDg4MDg0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+{% block scripts %}
+{% endblock %}
+
+{%endblock%}
